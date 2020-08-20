@@ -1,0 +1,64 @@
+//CICSCOBC PROC COPYLIB='SYS1.CPYLIB',  COPY LIBRARY                  
+//             SRCLIB='ERROR.SRCLIB',   SOURCE LIBRARY                
+//             MEMBER='ERROR.MEMBER'    PROGRAM NAME                  
+//*                                                                   
+//*                                                                   
+//*      THIS PROCEDURE CONTAINS 4 STEPS                              
+//*      1.   EXEC THE COBOL TRANSLATOR                               
+//*      2.   EXEC THE COBOL COMPILER                                 
+//*      3.   REBLOCK SDFHC370(DFHEILID) FOR USE BY THE LINKEDIT STEP 
+//*      4.   LINKEDIT THE OUTPUT INTO DATASET &LOADLIB               
+//*                                                                   
+//TRN    EXEC PGM=DFHECP1$,                                           
+//            PARM='COBOL3',                                          
+//            REGION=4M                                               
+//STEPLIB  DD DSN=DFH420.CICS.SDFHLOAD,DISP=SHR                       
+//SYSPRINT DD SYSOUT=*                                                
+//SYSPUNCH DD DSN=&&SYSCIN,                                  
+//            DISP=(,PASS),UNIT=SYSDA,                       
+//            DCB=BLKSIZE=400,                               
+//            SPACE=(400,(400,100))                          
+//SYSIN    DD DSN=&SRCLIB(&MEMBER),                          
+//            DISP=SHR                                       
+//*                                                          
+//COB    EXEC PGM=IGYCRCTL,REGION=4M,                        
+//  PARM='NODYNAM,LIB,OBJECT,RES,APOST,MAP,XREF,NOSEQUENCE'  
+//STEPLIB  DD DSN=IGY420.SIGYCOMP,DISP=SHR                   
+//SYSLIB   DD DSN=&COPYLIB,                                  
+//            DISP=SHR                                       
+//         DD DSN=DFH420.CICS.SDFHCOB,DISP=SHR               
+//         DD DSN=DFH420.CICS.SDFHMAC,DISP=SHR               
+//         DD DSN=DFH420.CICS.SDFHSAMP,DISP=SHR              
+//SYSPRINT DD SYSOUT=*                                       
+//SYSIN    DD DSN=&&SYSCIN,DISP=(OLD,DELETE)              
+//SYSLIN   DD DSN=&&LOADSET,DISP=(MOD,PASS),              
+//            UNIT=SYSDA,SPACE=(80,(250,100))             
+//SYSUT1   DD UNIT=SYSDA,SPACE=(460,(350,100))            
+//SYSUT2   DD UNIT=SYSDA,SPACE=(460,(350,100))            
+//SYSUT3   DD UNIT=SYSDA,SPACE=(460,(350,100))            
+//SYSUT4   DD UNIT=SYSDA,SPACE=(460,(350,100))            
+//SYSUT5   DD UNIT=SYSDA,SPACE=(460,(350,100))            
+//SYSUT6   DD UNIT=SYSDA,SPACE=(460,(350,100))            
+//SYSUT7   DD UNIT=SYSDA,SPACE=(460,(350,100))            
+//*                                                       
+//COPYLINK EXEC PGM=IEBGENER,COND=(7,LT,COB)              
+//SYSUT1   DD DSN=DFH420.CICS.SDFHSAMP(DFHEILID),DISP=SHR 
+//SYSUT2   DD DSN=&&COPYLINK,DISP=(NEW,PASS),             
+//            DCB=(LRECL=80,BLKSIZE=400,RECFM=FB),        
+//            UNIT=SYSDA,SPACE=(400,(20,20))              
+//SYSPRINT DD SYSOUT=*                                     
+//SYSIN    DD DUMMY                                        
+//*                                                        
+//LKED   EXEC PGM=IEWL,REGION=4M,                          
+//            PARM='LIST,XREF',COND=(5,LT,COB)             
+//SYSLIB   DD DSN=DFH420.CICS.SDFHLOAD,DISP=SHR            
+//         DD DSN=CEE.SCEELKED,DISP=SHR                    
+//         DD DSN=MATE1.CICS.LOADLIB,DISP=SHR              
+//SYSLMOD  DD DSN=MATE1.CICS.LOADLIB(&MEMBER),DISP=SHR     
+//SYSUT1   DD UNIT=SYSDA,DCB=BLKSIZE=1024,                 
+//            SPACE=(1024,(200,20))                        
+//SYSPRINT DD SYSOUT=*                                     
+//SYSLIN   DD DSN=&&COPYLINK,DISP=(OLD,DELETE)             
+//         DD DSN=&&LOADSET,DISP=(OLD,DELETE)              
+//         DD DDNAME=SYSIN                                 
+//SYSIN    DD DUMMY                                        

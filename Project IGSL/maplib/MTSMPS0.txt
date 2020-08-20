@@ -1,0 +1,100 @@
+MTSMPS0  DFHMSD TYPE=&SYSPARM,MODE=INOUT,                              X
+               LANG=COBOL,CTRL=FREEKB,                                 X
+               TIOAPFX=YES,STORAGE=AUTO,                               X
+               DSATTS=(COLOR,HILIGHT),                                 X
+               MAPATTS=(COLOR,HILIGHT)
+IGSLSTK  DFHMDI SIZE=(24,80),                                          X
+               LINE=1,                                                 X
+               COLUMN=1
+         DFHMDF POS=(1,1),                                             X
+               LENGTH=07,                                              X
+               ATTRB=(NORM,PROT),                                      X
+               COLOR=BLUE,                                             X
+               INITIAL='IGSLSTK'
+         DFHMDF POS=(1,20),                                            X
+               LENGTH=31,                                              X
+               ATTRB=(NORM,PROT),                                      X
+               COLOR=YELLOW,                                           X
+               INITIAL='==============================='
+         DFHMDF POS=(1,76),                                            X
+               LENGTH=4,                                               X
+               ATTRB=(NORM,PROT),                                      X
+               COLOR=BLUE,                                             X
+               INITIAL='IGSL'
+         DFHMDF POS=(2,20),                                            X
+               LENGTH=31,                                              X
+               ATTRB=(NORM,PROT),                                      X
+               COLOR=YELLOW,                                           X
+               INITIAL='INVENTURE GROWTH AND SECURITIES'
+         DFHMDF POS=(3,1),                                             X
+               LENGTH=5,                                               X
+               ATTRB=(NORM,PROT),                                      X
+               COLOR=BLUE,                                             X
+               INITIAL='DATE:'
+         DFHMDF POS=(3,20),                                            X
+               LENGTH=31,                                              X
+               ATTRB=(NORM,PROT),                                      X
+               COLOR=YELLOW,                                           X
+               INITIAL='==============================='
+CRDATE   DFHMDF POS=(3,70),                                            X
+               LENGTH=10,                                              X
+               ATTRB=(NORM,PROT),                                      X
+               COLOR=BLUE
+         DFHMDF POS=(5,1),                                             X
+               LENGTH=24,                                              X
+               ATTRB=(NORM,PROT),                                      X
+               COLOR=GREEN,                                            X
+               INITIAL='TYPE MTM AMOUNT. . . . .'
+MTMAMT   DFHMDF POS=(5,26),                                            X
+               LENGTH=10,                                              X
+               ATTRB=(NORM,UNPROT,IC),                                 X
+               COLOR=TURQUOISE,INITIAL='__________'
+         DFHMDF POS=(5,37),                                            X
+               LENGTH=01,                                              X
+               ATTRB=ASKIP
+         DFHMDF POS=(7,1),                                             X
+               LENGTH=24,                                              X
+               ATTRB=(NORM,PROT),                                      X
+               COLOR=GREEN,                                            X
+               INITIAL='TYPE BUY AMOUNT. . . . .'
+BUYAMT   DFHMDF POS=(7,26),                                            X
+               LENGTH=10,                                              X
+               ATTRB=(NORM,UNPROT),                                    X
+               COLOR=TURQUOISE,INITIAL='__________'
+         DFHMDF POS=(7,37),                                            X
+               LENGTH=01,                                              X
+               ATTRB=ASKIP
+         DFHMDF POS=(9,1),                                             X
+               LENGTH=28,                                              X
+               ATTRB=(NORM,PROT),                                      X
+               COLOR=RED,                                              X
+               INITIAL='TOTAL DEDUCTION CHARGED IS :'
+TCHRG    DFHMDF POS=(9,30),                                            X
+               LENGTH=20,                                              X
+               ATTRB=(NORM,PROT),                                      X
+               COLOR=RED
+         DFHMDF POS=(11,1),                                            X
+               LENGTH=28,                                              X
+               ATTRB=(NORM,PROT),                                      X
+               COLOR=BLUE,                                             X
+               INITIAL='MTM AMOUNT AFTER DEDUCTION :'
+FNAMT    DFHMDF POS=(11,30),                                           X
+               LENGTH=20,                                              X
+               ATTRB=(NORM,PROT),                                      X
+               COLOR=BLUE
+MESSAGE  DFHMDF POS=(23,1),                                            X
+               LENGTH=79,                                              X
+               ATTRB=(BRT,PROT),                                       X
+               COLOR=YELLOW
+         DFHMDF POS=(24,1),                                            X
+               LENGTH=20,                                              X
+               ATTRB=(NORM,PROT),                                      X
+               COLOR=BLUE,                                             X
+               INITIAL='F3=EXIT   F12=CANCEL'
+DUMMY    DFHMDF POS=(24,29),                                           X
+               LENGTH=1,                                               X
+               ATTRB=(DRK,PROT,FSET),                                  X
+               INITIAL=' '
+         DFHMSD TYPE=FINAL
+         END
+
