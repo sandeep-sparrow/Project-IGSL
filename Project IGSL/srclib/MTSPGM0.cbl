@@ -130,7 +130,7 @@
            MOVE TOTAL-CHARGE-EDITED TO TCHRGO
            MOVE MTM-AMOUNT-EDITED   TO FNAMTO
            MOVE WS-CURRENT-DATE     TO CRDATEO
-           MOVE "OK!"               TO MESSAGEO
+           MOVE "OK!!!"             TO MESSAGEO
       *
            PERFORM SEND-MAP-DATA.
       *
